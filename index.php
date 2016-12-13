@@ -10,16 +10,17 @@ require_once __DIR__ . '/lib/lib.inc.php';
 global $db, $langs, $user;
 global $conf;
 
+// External user
 if ($user->socid > 0) {
-    // External user
     accessforbidden();
 }
-restrictedArea($user,'produit|service');
+// User rights testing
+restrictedArea($user, 'produit|service');
 
+// Load lang
 $langs->load("products");
 $langs->load("services");
 $langs->load("cbwarquarterstats@cbwarquarterstats");
-
 
 /*
  * ACTIONS
@@ -29,36 +30,35 @@ $langs->load("cbwarquarterstats@cbwarquarterstats");
 
 /*
  * VIEW
- *
- * Put here all code to build page
  */
 
 llxHeader('', $langs->trans('StatsPerQuarter'), '');
 
 print load_fiche_titre($langs->trans('StatsPerQuarter'), "", 'title_products.png');
+
+$blocks = array();
+if ($conf->product->enabled) {
+    $blocks[] = array(0, $langs->trans("Products"));
+}
+if ($conf->service->enabled) {
+    $blocks[] = array(1, $langs->trans("Services"));
+}
+
 ?>
     <div class="fichecenter">
-
-        <div class="fichethirdleft">
-
-            <?php if (!empty($conf->product->enabled)): ?>
-                <h3><?=$langs->trans("Products")?></h3>
-                <?php salesActivity(0); ?>
-                <br>
-                <?php chargesActivity(0); ?>
-            <?php endif; ?>
-
-        </div>
-        <div class="fichetwothirdright">
-            <div class="ficheaddleft">
-                <?php if (!empty($conf->service->enabled)): ?>
-                    <h3><?=$langs->trans("Services")?></h3>
-                    <?php salesActivity(1); ?>
+        <?php foreach ($blocks as $i => $block): ?>
+            <div class="fichethirdleft">
+                <?php if ($i !== 0): ?>
+                <div class="ficheaddleft"><?php endif; ?>
+                    <h3><?= $block[1] ?></h3>
+                    <?php salesActivity($block[0]); ?>
                     <br>
-                    <?php chargesActivity(1); ?>
-                <?php endif; ?>
+                    <?php chargesActivity($block[0]); ?>
+                    <?php if ($i !== 0): ?>
+                </div>
+            <?php endif; ?>
             </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 <?php
 $db->close();
