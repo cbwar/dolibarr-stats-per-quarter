@@ -31,7 +31,7 @@ class modCbwarQuarterStats extends DolibarrModules
         $this->version = 'development';
 
         $this->special = 0;
-        $this->picto = 'object_stock.png';
+        $this->picto = '/theme/eldy/img/stats.png';
 
         $this->dirs = array();
         $this->config_page_url = array();
