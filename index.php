@@ -4,18 +4,22 @@ if (false === (@include '../../main.inc.php')) {  // From htdocs directory
     require '../../../main.inc.php'; // From "custom" directory
 }
 
+require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
+require_once __DIR__ . '/lib/lib.inc.php';
+
 global $db, $langs, $user;
 global $conf;
-
-$langs->load("cbwarquarterstats@cbwarquarterstats");
 
 if ($user->socid > 0) {
     // External user
     accessforbidden();
 }
+restrictedArea($user,'produit|service');
 
-require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
-require_once __DIR__ . '/lib/lib.inc.php';
+$langs->load("products");
+$langs->load("services");
+$langs->load("cbwarquarterstats@cbwarquarterstats");
+
 
 /*
  * ACTIONS
@@ -38,7 +42,7 @@ print load_fiche_titre($langs->trans('StatsPerQuarter'), "", 'title_products.png
         <div class="fichethirdleft">
 
             <?php if (!empty($conf->product->enabled)): ?>
-                <h3><?=$langs->trans("Produits")?></h3>
+                <h3><?=$langs->trans("Products")?></h3>
                 <?php salesActivity(0); ?>
                 <br>
                 <?php chargesActivity(0); ?>
