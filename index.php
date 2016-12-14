@@ -36,30 +36,26 @@ llxHeader('', $langs->trans('StatsPerQuarter'), '');
 
 print load_fiche_titre($langs->trans('StatsPerQuarter'), "", 'title_products.png');
 
-$blocks = array();
 if ($conf->product->enabled) {
-    $blocks[] = array(0, $langs->trans("Products"));
+    ?>
+    <h3><?= $langs->trans("Products") ?></h3>
+    <div class="fichecenter" style="min-width: 500px; max-width: 700px;">
+        <?php showSalesActivity(0); ?>
+        <br/>
+        <?php showChargesActivity(0); ?>
+    </div>
+    <?php
 }
 if ($conf->service->enabled) {
-    $blocks[] = array(1, $langs->trans("Services"));
+    ?>
+    <h3><?= $langs->trans("Services") ?></h3>
+    <div class="fichecenter" style="min-width: 500px;max-width: 700px;">
+        <?php showSalesActivity(1); ?>
+        <br/>
+        <?php showChargesActivity(1); ?>
+    </div>
+    <?php
 }
 
-?>
-    <div class="fichecenter">
-        <?php foreach ($blocks as $i => $block): ?>
-            <div class="fichethirdleft">
-                <?php if ($i !== 0): ?>
-                <div class="ficheaddleft"><?php endif; ?>
-                    <h3><?= $block[1] ?></h3>
-                    <?php showSalesActivity($block[0]); ?>
-                    <br>
-                    <?php showChargesActivity($block[0]); ?>
-                    <?php if ($i !== 0): ?>
-                </div>
-            <?php endif; ?>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php
 $db->close();
 llxFooter();
