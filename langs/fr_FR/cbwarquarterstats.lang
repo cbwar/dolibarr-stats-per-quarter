@@ -8,5 +8,5 @@ Quarter2=T-2
 Quarter3=T-3
 Quarter4=T-4
 QuarterStatsSetup=Paramétrage des statistiques par trimestre
-ChargesNumOption=Valeur pour le calcul des charges (pourcentage)
+ChargesNumOption=Pourcentage de charges
 IntNeeded=La valeur saisie doit être un nombre entier

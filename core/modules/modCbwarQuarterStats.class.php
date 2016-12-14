@@ -80,4 +80,16 @@ class modCbwarQuarterStats extends DolibarrModules
 
     }
 
+    public function init($options = '')
+    {
+        $this->_load_tables('/cbwarquarterstats/sql/');
+        return parent::init($options);
+    }
+
+    public function remove($options = '')
+    {
+        return parent::remove($options);
+    }
+
+
 }

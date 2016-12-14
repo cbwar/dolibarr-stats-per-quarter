@@ -5,12 +5,14 @@
 
 // Load Dolibarr environment
 if (false === (@include '../../main.inc.php')) {  // From htdocs directory
-	require '../../../main.inc.php'; // From "custom" directory
+    require '../../../main.inc.php'; // From "custom" directory
 }
 require_once DOL_DOCUMENT_ROOT . '/core/lib/admin.lib.php';
 
 global $langs;
 global $db;
+global $conf;
+global $user;
 
 $langs->load("admin");
 $langs->load("cbwarquarterstats@cbwarquarterstats");
@@ -24,12 +26,12 @@ if (!$user->admin) accessforbidden();
  */
 
 if ($opts = GETPOST('opts')) {
-	// Save charges value 
-	if (($opt_charges = filter_var($opts['QUARTERSTATS_CHARGES_NUM'], FILTER_VALIDATE_INT)) !== false) {
-		dolibarr_set_const($db, 'QUARTERSTATS_CHARGES_NUM', $opt_charges, 'chaine', '0', '', $conf->entity);
-	} else {
-		setEventMessages($langs->trans("IntNeeded"), null, 'errors');
-	}
+    // Save charges value
+    if (($opt_charges = filter_var($opts['CBWARQUARTERSTATS_CHARGES_PCT'], FILTER_VALIDATE_INT)) !== false) {
+        dolibarr_set_const($db, 'CBWARQUARTERSTATS_CHARGES_PCT', $opt_charges, 'chaine', '0', '', $conf->entity);
+    } else {
+        setEventMessages($langs->trans("IntNeeded"), null, 'errors');
+    }
 }
 
 
@@ -43,9 +45,9 @@ $linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php">' . $langs->trans(
 print load_fiche_titre($langs->trans("QuarterStatsSetup"), $linkback, 'title_setup');
 
 // Default value
-$opt_charges = $conf->global->QUARTERSTATS_CHARGES_NUM;
+$opt_charges = $conf->global->CBWARQUARTERSTATS_CHARGES_PCT;
 if ($opt_charges === null) {
-	$opt_charges = 24;
+    $opt_charges = 24;
 }
 
 // Opts form
@@ -62,10 +64,12 @@ if ($opt_charges === null) {
                     <label for="chargesNum"><?= $langs->trans("ChargesNumOption") ?></label>
                 </td>
                 <td></td>
-                <td align="right"><input id="chargesNum" min="0" max="100" type="number"
-                                         class="flat"
-                                         name="opts[QUARTERSTATS_CHARGES_NUM]"
-                                         value="<?= $opt_charges ?>"> %
+                <td align="right">
+                    <span style="white-space: nowrap">
+                    <input id="chargesNum" min="0" max="100" type="number"
+                           class="flat"
+                           name="opts[CBWARQUARTERSTATS_CHARGES_PCT]"
+                           value="<?= $opt_charges ?>"> %</span>
                 </td>
             </tr>
         </table>

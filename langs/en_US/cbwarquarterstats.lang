@@ -8,5 +8,5 @@ Quarter2=Q-2
 Quarter3=Q-3
 Quarter4=Q-4
 QuarterStatsSetup=Statistics per quarter setup
-ChargesNumOption=Charges calculation value (percent)
+ChargesNumOption=Charges percent
 IntNeeded=The value must be an integer

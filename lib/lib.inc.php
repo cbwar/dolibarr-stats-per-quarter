@@ -130,7 +130,7 @@ function showChargesActivity($product_type)
     global $langs;
 
     // Charges Option 
-    $chargesOpt = (int)dolibarr_get_const($db, 'QUARTERSTATS_CHARGES_NUM', $conf->entity);
+    $chargesOpt = (int)dolibarr_get_const($db, 'CBWARQUARTERSTATS_CHARGES_PCT', $conf->entity);
     $chargesPct = $chargesOpt / 100;
 
     $datas = getQuartersActivity($product_type);
