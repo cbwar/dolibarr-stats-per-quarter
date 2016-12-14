@@ -3,6 +3,7 @@
  * Main lib file
  */
 
+require_once DOL_DOCUMENT_ROOT . '/core/lib/admin.lib.php';
 
 /*
  *  Print html activity for product type
@@ -115,6 +116,9 @@ function chargesActivity($product_type)
     global $conf, $langs, $db;
     global $bc;
 
+    // Charges Option 
+    $chargesOpt = (int)dolibarr_get_const($db, 'QUARTERSTATS_CHARGES_NUM', $conf->entity) / 100;
+
     // We display the last 3 years
     $yearofbegindate = date('Y', dol_time_plus_duree(time(), -3, "y"));
 
@@ -164,11 +168,10 @@ function chargesActivity($product_type)
             if ($tmpyear != $objp->annee) {
                 if ($trim1 + $trim2 + $trim3 + $trim4 > 0) {
                     $var = !$var;
-                    $charges = 24;
-                    $chargesTrim1 = ($trim1 / 100) * $charges;
-                    $chargesTrim2 = ($trim2 / 100) * $charges;
-                    $chargesTrim3 = ($trim3 / 100) * $charges;
-                    $chargesTrim4 = ($trim4 / 100) * $charges;
+                    $chargesTrim1 = $trim1 * $chargesOpt;
+                    $chargesTrim2 = $trim2 * $chargesOpt;
+                    $chargesTrim3 = $trim3 * $chargesOpt;
+                    $chargesTrim4 = $trim4 * $chargesOpt;
 
                     print '<tr ' . $bc[$var] . '><td align=left>' . $tmpyear . '</td>';
                     print '<td align=right>' . price($chargesTrim1) . '</td>';
@@ -203,11 +206,10 @@ function chargesActivity($product_type)
         }
         if ($trim1 + $trim2 + $trim3 + $trim4 > 0) {
             $var = !$var;
-            $charges = 24;
-            $chargesTrim1 = ($trim1 / 100) * $charges;
-            $chargesTrim2 = ($trim2 / 100) * $charges;
-            $chargesTrim3 = ($trim3 / 100) * $charges;
-            $chargesTrim4 = ($trim4 / 100) * $charges;
+            $chargesTrim1 = $trim1 * $chargesOpt;
+            $chargesTrim2 = $trim2 * $chargesOpt;
+            $chargesTrim3 = $trim3 * $chargesOpt;
+            $chargesTrim4 = $trim4 * $chargesOpt;
 
             print '<tr ' . $bc[$var] . '><td align=left>' . $tmpyear . '</td>';
             print '<td align=right><span style="color: black; ">' . price($chargesTrim1) . '</span></td>';

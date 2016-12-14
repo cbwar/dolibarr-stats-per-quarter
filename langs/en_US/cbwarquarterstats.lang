@@ -1,7 +1,5 @@
-# Generic
 Module994989Name=Statistics per quarter
 Module994989Desc=Products and service stats per quarters
-# Index
 StatsPerQuarter=Statistics per quarter
 SellByQuarterHT=Sales
 ChargesByQuarterHT=Charges / taxes
@@ -9,3 +7,6 @@ Quarter1=Q-1
 Quarter2=Q-2
 Quarter3=Q-3
 Quarter4=Q-4
+QuarterStatsSetup=Statistics per quarter setup
+ChargesNumOption=Charges calculation value (percent)
+IntNeeded=The value must be an integer

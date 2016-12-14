@@ -29,12 +29,12 @@ class modCbwarQuarterStats extends DolibarrModules
         $this->editor_name = "Raphael Lisch";
         $this->editor_url = "https://raphael.lisch.fr";
         $this->version = 'development';
+        $this->config_page_url = array('setup.php@cbwarquarterstats');
 
         $this->special = 0;
         $this->picto = '/theme/eldy/img/stats.png';
 
         $this->dirs = array();
-        $this->config_page_url = array();
         $this->depends = array();
         $this->requiredby = array();
         $this->langfiles = array("cbwarquarterstats@cbwarquarterstats");

@@ -1,7 +1,5 @@
-
 Module994989Name=Statistiques par trimestre
 Module994989Desc=Statistiques des produits et services par trimestre
-
 StatsPerQuarter=Statistiques par trimestre
 SellByQuarterHT=Chiffre d'affaires
 ChargesByQuarterHT=Charges / taxes
@@ -9,3 +7,6 @@ Quarter1=T-1
 Quarter2=T-2
 Quarter3=T-3
 Quarter4=T-4
+QuarterStatsSetup=Paramétrage des statistiques par trimestre
+ChargesNumOption=Valeur pour le calcul des charges (pourcentage)
+IntNeeded=La valeur saisie doit être un nombre entier
