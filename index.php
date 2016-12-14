@@ -51,9 +51,9 @@ if ($conf->service->enabled) {
                 <?php if ($i !== 0): ?>
                 <div class="ficheaddleft"><?php endif; ?>
                     <h3><?= $block[1] ?></h3>
-                    <?php salesActivity($block[0]); ?>
+                    <?php showSalesActivity($block[0]); ?>
                     <br>
-                    <?php chargesActivity($block[0]); ?>
+                    <?php showChargesActivity($block[0]); ?>
                     <?php if ($i !== 0): ?>
                 </div>
             <?php endif; ?>
