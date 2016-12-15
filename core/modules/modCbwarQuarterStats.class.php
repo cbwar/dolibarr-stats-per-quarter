@@ -19,7 +19,7 @@ class modCbwarQuarterStats extends DolibarrModules
 
         $this->numero = 994989;
         $this->need_dolibarr_version = array(3, 2);
-        $this->phpmin = array(5, 3);
+        $this->phpmin = array(5, 4);
         $this->family = 'products';
         $this->module_position = 500;
 
