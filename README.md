@@ -8,5 +8,5 @@ Installation
 
 - Clôner le dépot: 
 
-`` git clone https://gogs.lycanthropy.fr/cbwar/dolibarr-quarterstats.git cbwarquarterstats
+`` git clone git@github.com:cbwar/dolibarr-stats-per-quarter.git cbwarquarterstats
 ``
