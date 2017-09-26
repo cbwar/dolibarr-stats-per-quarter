@@ -130,8 +130,8 @@ function showChargesActivity($product_type)
     global $langs;
 
     // Charges Option 
-    $chargesOpt = (int)dolibarr_get_const($db, 'CBWARQUARTERSTATS_CHARGES_PCT', $conf->entity);
-    $chargesPct = $chargesOpt / 100;
+    $chargesOpt = (float)dolibarr_get_const($db, 'CBWARQUARTERSTATS_CHARGES_PCT', $conf->entity);
+    $chargesPct = $chargesOpt / 100.0;
 
     $datas = getQuartersActivity($product_type);
 
@@ -141,5 +141,5 @@ function showChargesActivity($product_type)
             return $v * $chargesPct;
         }, $trims);
     }
-    showQuarterTbl($langs->trans("ChargesByQuarterHT") . ' (' . (int)$chargesOpt . '%)', $datas);
+    showQuarterTbl($langs->trans("ChargesByQuarterHT") . ' (' . $chargesOpt . '%)', $datas);
 }

@@ -27,7 +27,7 @@ if (!$user->admin) accessforbidden();
 
 if ($opts = GETPOST('opts')) {
     // Save charges value
-    if (($opt_charges = filter_var($opts['CBWARQUARTERSTATS_CHARGES_PCT'], FILTER_VALIDATE_INT)) !== false) {
+    if (($opt_charges = filter_var($opts['CBWARQUARTERSTATS_CHARGES_PCT'], FILTER_VALIDATE_FLOAT)) !== false) {
         dolibarr_set_const($db, 'CBWARQUARTERSTATS_CHARGES_PCT', $opt_charges, 'chaine', '0', '', $conf->entity);
     } else {
         setEventMessages($langs->trans("IntNeeded"), null, 'errors');
@@ -67,7 +67,7 @@ if ($opt_charges === null) {
                 <td align="right">
                     <span style="white-space: nowrap">
                     <input id="chargesNum" min="0" max="100" type="number"
-                           class="flat"
+                           class="flat" step=".01"
                            name="opts[CBWARQUARTERSTATS_CHARGES_PCT]"
                            value="<?= $opt_charges ?>"> %</span>
                 </td>

@@ -28,7 +28,7 @@ class modCbwarQuarterStats extends DolibarrModules
         $this->description = "Products and service stats per quarters";
         $this->editor_name = "Raphael Lisch";
         $this->editor_url = "https://raphael.lisch.fr";
-        $this->version = 'development';
+        $this->version = '1.0.0';
         $this->config_page_url = array('setup.php@cbwarquarterstats');
 
         $this->special = 0;
