@@ -139,16 +139,27 @@ function showChargesActivity($product_type)
         }, $trims);
     }
     showQuarterTbl($langs->trans("ChargesByQuarterHT") . ' (' . $chargesOpt . '%)', $chargesData);
+}
 
-    // Abattement
+/**
+ * Print abattment for product_type
+ *
+ * @param      int $product_type Type of product
+ */
+function showAbtmtActivity($product_type)
+{
+    global $conf;
+    global $db;
+    global $langs;
+
     $abtmtOpt = (float)dolibarr_get_const($db, 'CBWARQUARTERSTATS_ABTMT_PCT', $conf->entity);
     $abtmtPct = $abtmtOpt / 100.0;
     $abtmtData = getQuartersActivity($product_type);
     foreach ($abtmtData as $year => $trims) {
-        $abtmtData[$year] = array_map(function ($v) use ($chargesPct) {
-            return $v * $chargesPct;
+        $abtmtData[$year] = array_map(function ($v) use ($abtmtPct) {
+            return $v * (1 - $abtmtPct);
         }, $trims);
     }
 
-    showQuarterTbl($langs->trans("ChargesByQuarterHT") . ' (' . $abtmtOpt . '%)', $abtmtData);
+    showQuarterTbl($langs->trans("AbtmtByQuarter") . ' (' . $abtmtOpt . '%)', $abtmtData);
 }

@@ -32,6 +32,13 @@ if ($opts = GETPOST('opts')) {
     } else {
         setEventMessages($langs->trans("IntNeeded"), null, 'errors');
     }
+
+    if (($opt_abtmt = filter_var($opts['CBWARQUARTERSTATS_ABTMT_PCT'], FILTER_VALIDATE_FLOAT)) !== false) {
+        dolibarr_set_const($db, 'CBWARQUARTERSTATS_ABTMT_PCT', $opt_abtmt, 'chaine', '0', '', $conf->entity);
+    } else {
+        setEventMessages($langs->trans("IntNeeded"), null, 'errors');
+    }
+    
 }
 
 
@@ -45,10 +52,8 @@ $linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php">' . $langs->trans(
 print load_fiche_titre($langs->trans("QuarterStatsSetup"), $linkback, 'title_setup');
 
 // Default value
-$opt_charges = $conf->global->CBWARQUARTERSTATS_CHARGES_PCT;
-if ($opt_charges === null) {
-    $opt_charges = 24;
-}
+$opt_charges = $conf->global->CBWARQUARTERSTATS_CHARGES_PCT ?? 22.1;
+$opt_abtmt = $conf->global->CBWARQUARTERSTATS_ABTMT_PCT ?? 34.7;
 
 // Opts form
 ?>
@@ -70,6 +75,19 @@ if ($opt_charges === null) {
                            class="flat" step=".01"
                            name="opts[CBWARQUARTERSTATS_CHARGES_PCT]"
                            value="<?= $opt_charges ?>"> %</span>
+                </td>
+            </tr> 
+            <tr>
+                <td>
+                    <label for="chargesNum"><?= $langs->trans("AbtmtNumOption") ?></label>
+                </td>
+                <td></td>
+                <td align="right">
+                    <span style="white-space: nowrap">
+                    <input id="chargesNum" min="0" max="100" type="number"
+                           class="flat" step=".01"
+                           name="opts[CBWARQUARTERSTATS_ABTMT_PCT]"
+                           value="<?= $opt_abtmt ?>"> %</span>
                 </td>
             </tr>
         </table>

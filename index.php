@@ -43,6 +43,8 @@ if ($conf->product->enabled) {
         <?php showSalesActivity(0); ?>
         <br/>
         <?php showChargesActivity(0); ?>
+        <br/>
+        <?php showAbtmtActivity(0); ?>
     </div>
     <?php
 }
@@ -53,6 +55,8 @@ if ($conf->service->enabled) {
         <?php showSalesActivity(1); ?>
         <br/>
         <?php showChargesActivity(1); ?>
+        <br/>
+        <?php showAbtmtActivity(1); ?>
     </div>
     <?php
 }
