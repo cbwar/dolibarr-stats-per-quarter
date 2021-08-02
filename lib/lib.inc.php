@@ -129,17 +129,26 @@ function showChargesActivity($product_type)
     global $db;
     global $langs;
 
-    // Charges Option 
+    // Charges
     $chargesOpt = (float)dolibarr_get_const($db, 'CBWARQUARTERSTATS_CHARGES_PCT', $conf->entity);
     $chargesPct = $chargesOpt / 100.0;
-
-    $datas = getQuartersActivity($product_type);
-
-    // Apply percent
-    foreach ($datas as $year => $trims) {
-        $datas[$year] = array_map(function ($v) use ($chargesPct) {
+    $chargesData = getQuartersActivity($product_type);
+    foreach ($chargesData as $year => $trims) {
+        $chargesData[$year] = array_map(function ($v) use ($chargesPct) {
             return $v * $chargesPct;
         }, $trims);
     }
-    showQuarterTbl($langs->trans("ChargesByQuarterHT") . ' (' . $chargesOpt . '%)', $datas);
+    showQuarterTbl($langs->trans("ChargesByQuarterHT") . ' (' . $chargesOpt . '%)', $chargesData);
+
+    // Abattement
+    $abtmtOpt = (float)dolibarr_get_const($db, 'CBWARQUARTERSTATS_ABTMT_PCT', $conf->entity);
+    $abtmtPct = $abtmtOpt / 100.0;
+    $abtmtData = getQuartersActivity($product_type);
+    foreach ($abtmtData as $year => $trims) {
+        $abtmtData[$year] = array_map(function ($v) use ($chargesPct) {
+            return $v * $chargesPct;
+        }, $trims);
+    }
+
+    showQuarterTbl($langs->trans("ChargesByQuarterHT") . ' (' . $abtmtOpt . '%)', $abtmtData);
 }
