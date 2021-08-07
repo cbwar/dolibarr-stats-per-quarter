@@ -31,34 +31,62 @@ $langs->load("cbwarquarterstats@cbwarquarterstats");
 /*
  * VIEW
  */
+ini_set('display_errors', 'On');
+
 
 llxHeader('', $langs->trans('StatsPerQuarter'), '');
 
 print load_fiche_titre($langs->trans('StatsPerQuarter'), "", 'title_products.png');
 
+$select_product_type = GETPOST('product_type');
+if ($select_product_type === '') $select_product_type = 'service';
+
+$h = 0;
 if ($conf->product->enabled) {
-    ?>
-    <h3><?= $langs->trans("Products") ?></h3>
-    <div class="fichecenter" style="min-width: 500px; max-width: 700px;">
-        <?php showSalesActivity(0); ?>
-        <br/>
-        <?php showChargesActivity(0); ?>
-        <br/>
-        <?php showAbtmtActivity(0); ?>
-    </div>
-    <?php
+    $head = array();
+    $head[$h][0] = DOL_URL_ROOT . '/custom/cbwarquarterstats/index.php?product_type=product';
+    $head[$h][1] = $langs->trans('Product');
+    $head[$h][2] = 'product';
+    $h++;
 }
 if ($conf->service->enabled) {
-    ?>
-    <h3><?= $langs->trans("Services") ?></h3>
-    <div class="fichecenter" style="min-width: 500px;max-width: 700px;">
-        <?php showSalesActivity(1); ?>
-        <br/>
-        <?php showChargesActivity(1); ?>
-        <br/>
-        <?php showAbtmtActivity(1); ?>
-    </div>
-    <?php
+    $head[$h][0] = DOL_URL_ROOT . '/custom/cbwarquarterstats/index.php?product_type=service';
+    $head[$h][1] = $langs->trans('Service');
+    $head[$h][2] = 'service';
+    $h++;
+}
+print dol_get_fiche_head(
+    $head,
+    $select_product_type,
+    $select_product_type === 'product' ? $langs->trans('Product') : $langs->trans('Service'),
+    -1
+);
+
+
+$stats = new QuarterStats($select_product_type);
+$data = $stats->getData();
+
+if (empty($data)) {
+
+    print 'No data';
+
+} else {
+
+    $selected_year = GETPOST('year', 'int');
+    if ($selected_year === '') $selected_year = date('Y');
+
+    $h = 0;
+    $head = array();
+    foreach ($data as $year => $ydata) {
+        $head[$h][0] = DOL_URL_ROOT . '/custom/cbwarquarterstats/index.php?product_type=' . $select_product_type . '&year=' . $year;
+        $head[$h][1] = $year;
+        $head[$h][2] = 'year_' . $year;
+        $h++;
+    }
+    print dol_get_fiche_head($head, 'year_' . $selected_year, $selected_year, -1);
+
+    $stats->renderTable($selected_year);
+
 }
 
 $db->close();
