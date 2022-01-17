@@ -86,6 +86,16 @@ class QuarterStats
             }
             $this->data[$objp->annee]['trim' . $this->getMonthTrim($objp->mois)] += $objp->Mnttot;
         }
+
+        if (!isset($this->data[date('Y')])) {
+            $this->data[date('Y')] = [
+                'trim1' => 0,
+                'trim2' => 0,
+                'trim3' => 0,
+                'trim4' => 0,
+            ];
+        }
+        
     }
 
 
