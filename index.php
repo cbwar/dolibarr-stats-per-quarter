@@ -7,8 +7,7 @@ if (false === (@include '../../main.inc.php')) {  // From htdocs directory
 require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
 require_once __DIR__ . '/lib/lib.inc.php';
 
-global $db, $langs, $user;
-global $conf;
+global $conf, $db, $langs, $user;
 
 // External user
 if ($user->socid > 0) {
@@ -42,14 +41,14 @@ $select_product_type = GETPOST('product_type');
 if ($select_product_type === '') $select_product_type = 'service';
 
 $h = 0;
-if ($conf->product->enabled) {
-    $head = array();
+$head = array();
+if (isset($conf->product->enabled)) {
     $head[$h][0] = DOL_URL_ROOT . '/custom/cbwarquarterstats/index.php?product_type=product';
     $head[$h][1] = $langs->trans('Product');
     $head[$h][2] = 'product';
     $h++;
 }
-if ($conf->service->enabled) {
+if (isset($conf->service->enabled)) {
     $head[$h][0] = DOL_URL_ROOT . '/custom/cbwarquarterstats/index.php?product_type=service';
     $head[$h][1] = $langs->trans('Service');
     $head[$h][2] = 'service';
